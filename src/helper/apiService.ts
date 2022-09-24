@@ -42,6 +42,6 @@ const requests = {
 };
 
 export const usersMain = {
-  getUsers: async (pageNumber: any) =>
-    requests.get(`${URLS.GET_USERS}?per_page=${pageNumber}`),
+  getUsers: async (limit: number) =>
+    requests.get(`${URLS.GET_USERS}?per_page=${limit}`),
 };

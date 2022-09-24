@@ -11,7 +11,10 @@ const usersList = createSlice({
   name: 'user',
   initialState: {
     data: [],
+    limit: 10,
     status: STATUS.IDLE,
+    searchValue: '',
+    selected: false,
   },
   reducers: {
     setUsers(state, action) {
@@ -20,10 +23,22 @@ const usersList = createSlice({
     setStatus(state, action) {
       state.status = action.payload;
     },
+    setPageLimit(state, action) {
+      console.log('updating limit');
+      if (action.payload) {
+        console.log('action payload', action.payload);
+        state.limit = 0;
+      }
+      state.limit = state.limit + 10;
+    },
+    setSearchUser(state, action) {
+      state.searchValue = action.payload;
+    },
   },
 });
 
-export const {setUsers, setStatus} = usersList.actions;
+export const {setUsers, setStatus, setPageLimit, setSearchUser} =
+  usersList.actions;
 
 export default usersList.reducer;
 

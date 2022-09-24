@@ -4,9 +4,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
-  TouchableOpacity,
   SafeAreaView,
-  Text,
   TextInput,
   Button,
 } from 'react-native';
@@ -15,7 +13,7 @@ import Colors from '../constants/Colors';
 import User from '../components/User';
 import {useDispatch, useSelector} from 'react-redux';
 import {select} from '../store/userSlice';
-import {fetchUsers} from '../store/userListSlice';
+import {fetchUsers, setPageLimit, setSearchUser} from '../store/userListSlice';
 import {STATUS} from '../store/userListSlice';
 
 const wait = (timeout: any) => {
@@ -24,13 +22,19 @@ const wait = (timeout: any) => {
 
 export default function Users() {
   const dispatch = useDispatch();
-  const {data: users, status} = useSelector((state: any) => state.usersList);
+  const {
+    data: users,
+    limit,
+    status,
+    searchValue,
+    selectUser,
+  } = useSelector((state: any) => state.usersList);
   const [selected, setSelected] = useState(false);
-  const [refreshing, setRefreshing] = React.useState(false);
-  const [loaded, setLoaded] = useState(10);
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
-    dispatch(fetchUsers(loaded));
-  }, []);
+    dispatch(fetchUsers(limit));
+  }, [limit]);
 
   const handleSelect = (user: any) => {
     dispatch(select(user));
@@ -38,19 +42,23 @@ export default function Users() {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
+    wait(2000).then(() => {
+      dispatch(setPageLimit(5));
+      setRefreshing(false);
+    });
   }, []);
 
-  const loadMore = (num: number) => {
-    console.log('loadMore clicked', loaded);
-    setLoaded(num + 10);
+  const loadMore = () => {
+    console.log('loadMore clicked');
+    console.log(limit);
+    dispatch(setPageLimit());
   };
 
   const renderFooter = () => {
     return (
       //Footer View with Load More button
       <View style={styles.footer}>
-        <Button title="Load More" onPress={() => loadMore(loaded)} />
+        <Button title="Load More" onPress={() => loadMore()} />
       </View>
     );
   };
@@ -62,12 +70,26 @@ export default function Users() {
       </View>
     );
   }
+
+  const handleText = (text: string) => {
+    console.log(text);
+    dispatch(setSearchUser(text));
+  };
+
+  const filteredData = users.filter((item: any) =>
+    item.login.includes(searchValue),
+  );
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <TextInput placeholder="Search Here" style={styles.searchBar} />
+        <TextInput
+          placeholder="Search Here"
+          style={styles.searchBar}
+          onChangeText={text => handleText(text)}
+          value={searchValue}
+        />
         <FlatList
-          data={users}
+          data={searchValue.trim().length > 0 ? filteredData : users}
           keyExtractor={(_, index) => index.toString()}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
