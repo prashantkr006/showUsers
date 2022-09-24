@@ -3,10 +3,12 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  KeyboardAvoidingView,
   RefreshControl,
   SafeAreaView,
   TextInput,
   Button,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Colors from '../constants/Colors';
@@ -27,7 +29,6 @@ export default function Users() {
     limit,
     status,
     searchValue,
-    selectUser,
   } = useSelector((state: any) => state.usersList);
   const [selected, setSelected] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -80,34 +81,34 @@ export default function Users() {
     item.login.includes(searchValue),
   );
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Search Here"
-          style={styles.searchBar}
-          onChangeText={text => handleText(text)}
-          value={searchValue}
-        />
-        <FlatList
-          data={searchValue.trim().length > 0 ? filteredData : users}
-          keyExtractor={(_, index) => index.toString()}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          renderItem={(item: any) => {
-            return (
-              <User
-                name={item.item.login}
-                avatar_url={item.item.avatar_url}
-                selected={selected}
-                onPress={() => handleSelect(item.item)}
-              />
-            );
-          }}
-          ListFooterComponent={renderFooter}
-        />
-      </View>
-    </SafeAreaView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+          <TextInput
+            placeholder="Search Here"
+            style={styles.searchBar}
+            onChangeText={text => handleText(text)}
+            value={searchValue}
+          />
+          <FlatList
+            data={searchValue.trim().length > 0 ? filteredData : users}
+            keyExtractor={(_, index) => index.toString()}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            renderItem={(item: any) => {
+              return (
+                <User
+                  name={item.item.login}
+                  avatar_url={item.item.avatar_url}
+                  selected={selected}
+                  onPress={() => handleSelect(item.item)}
+                />
+              );
+            }}
+            ListFooterComponent={renderFooter}
+          />
+      </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({

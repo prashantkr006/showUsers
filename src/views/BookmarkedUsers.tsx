@@ -1,4 +1,12 @@
-import {View, Text, StyleSheet, TextInput, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import User from '../components/User';
@@ -27,7 +35,9 @@ export default function BookmarkedUsers() {
   );
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
       {selectedUsers.length > 0 ? (
         <>
           <TextInput
@@ -56,7 +66,7 @@ export default function BookmarkedUsers() {
           <Text>No data is available load some data</Text>
         </View>
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
