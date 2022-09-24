@@ -34,3 +34,17 @@ Considerations:
 	-	Followed all the best practices
 	-	Use Redux and redux persist for state management and storage
 
+
+## Screenshots 
+<p align="center">
+<img src = "https://user-images.githubusercontent.com/54601213/192101303-62676106-dea4-4686-a899-fb2d41f6945c.jpg" width = "200px" height = "400px">
+<img src = "https://user-images.githubusercontent.com/54601213/192101425-5cf3823c-611e-4e0d-a5ad-284571509bf4.jpg" width = "200px" height = "400px">
+<img src = "https://user-images.githubusercontent.com/54601213/192101492-73a01847-74ac-4382-bc4e-5351e3199095.jpg" width = "200px" height = "400px">
+<img src = "https://user-images.githubusercontent.com/54601213/192101493-f724f42c-0b99-4c27-9429-33d9ea435fb3.jpg" width = "200px" height = "400px">
+</p>
+
+## Demo working of app
+
+
+https://user-images.githubusercontent.com/54601213/192101553-770750fa-7d5b-4702-93c3-13585c1648f7.mp4
+
