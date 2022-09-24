@@ -18,19 +18,19 @@ The application contains two tabs.
 1. First Tab: Users 
 2. Second Tab: Bookmarked Users 
 Features implemented: 
-	•	List of Users from above API 
-	•	Show user login name and the circular image from avatar_url 
-	•	Load more with the help of pagination 
-	•	Pull-to-refresh to refresh the page 
-	•	User should be bookmarked/unbookmarked from the list item 
-	•	Display the bookmarked users in Second Tab (No API call /pagination required here) 
-	•	From the second Tab, We can deselect the user. 
+	-	List of Users from above API 
+	-	Show user login name and the circular image from avatar_url 
+	-	Load more with the help of pagination 
+	-	Pull-to-refresh to refresh the page 
+	-	User should be bookmarked/unbookmarked from the list item 
+	-	Display the bookmarked users in Second Tab (No API call /pagination required here) 
+	-	From the second Tab, We can deselect the user. 
 (Users selection/deselection should reflect properly in both listings) 
-	•	In both the tabs, add a feature to search the users based on their name case insensitively. (Search should happen for data already loaded. No network call needed for it). 
-	•	Bookmarked users should be accessible in offline mode or across the app instances 
+	-	In both the tabs, add a feature to search the users based on their name case insensitively. (Search should happen for data already loaded. No network call needed for it). 
+	-	Bookmarked users should be accessible in offline mode or across the app instances 
 Considerations: 
-	•	Used Functional components and hooks
-	•	Used reusable components wherever possible
-	•	Followed all the best practices
-	•	Use Redux and redux persist for state management and storage
+	-	Used Functional components and hooks
+	-	Used reusable components wherever possible
+	-	Followed all the best practices
+	-	Use Redux and redux persist for state management and storage
 
